@@ -1,5 +1,5 @@
 {
-	"name": "TaxFree for Odoo by GlobalBlue",
+	"name": "TaxFree for Odoo by Global Blue",
 	"summary": """""",
 	"category": "Sales",
 	"version": "2.0.0",
