@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+	<record id="pos_sale_order_integra" model="ir.ui.view">
+		<field name="name">Pos Sale Order integra</field>
+		<field name="model">pos.order</field>
+		<field
+				name="inherit_id"
+				ref="point_of_sale.view_pos_pos_form"
+		/>
+		<field name="arch" type="xml">
+			<field name="pricelist_id" position="after">
+				<field name="document_identifier_integra"/>
+				<field name="totalGrossAmount" attrs="{'invisible': [('document_identifier_integra', '=', False)]}"/>
+				<field name="tff_void" attrs="{'invisible': [('document_identifier_integra', '=', False)]}"/>
+				<field name="picking_type_id"/>
+				<field name="amount_paid"/>
+				<field name="amount_return"/>
+			</field>
+			<xpath expr="//form/sheet/div" position="before">
+				<widget name="web_ribbon" title="TaxFree Voided" bg_color="bg-danger" attrs="{'invisible': [('tff_void', '!=', True)]}"/>
+			</xpath>
+			<xpath expr="//header" position="inside">
+				<button
+						name="action_print_tax_free"
+						type="object"
+						string="Print TaxFree PDF"
+						attrs="{'invisible': [('document_identifier_integra', '=', False)]}"
+				/>
+			</xpath>
+		</field>
+	</record>
+
+</odoo>

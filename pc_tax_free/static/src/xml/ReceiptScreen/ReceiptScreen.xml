@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+	<t t-inherit="point_of_sale.ReceiptScreen" t-inherit-mode="extension">
+		<xpath expr="//div[hasclass('buttons')]" position="inside">
+			<button class="button print" id="button_print_receipt_freetax" disabled="disabled" t-on-click="printReceiptFreeTax">
+				<i class="fa fa-print"></i>
+				Print Receipt Tax Free
+			</button>
+		</xpath>
+		<xpath expr="//form[hasclass('send-email')]" position="after">
+			<hr/>
+			<h1>Do you want to use the free-tax service?</h1>
+			<div id="box_loading_free_tax" style="background-color:#AEFAFF; padding:5px;">Loading Free Tax. Please wait a moment...</div>
+			<div id="box_error_free_tax" style="display:none !important; background-color:#FFEAAE; padding:5px;">
+				Error connecting to Free Tax server, please try again by clicking on the next icon
+				<a href="#" t-on-click="_grantAccess()"><i class="fa fa-exchange"></i></a>
+				or check your connection settings in Odoo's settings
+			</div>
+			<div id="box_warning_message_free_tax"
+				 style="display:none !important; background-color:#FFEAAE; padding:5px;">
+			</div>
+			<div id="box_info_message_free_tax"
+				 style="display:none !important; background-color:#AEFAFF; padding:5px;">
+			</div>
+			<div id="box_button_free_tax" class="buttons" style="display:none !important;">
+<!--				<form method="post" action="https://ic2integra-web.mspe.globalblue.com/ui/integra" id="free_tax_form"-->
+				<!--					  target="POPUPW"-->
+				<!--					  onsubmit="POPUPW = window.open('about:blank','POPUPW',-->
+				<!--				   'width=600,height=400');">-->
+				<form method="post" action="https://ic2integra-web.mspe.globalblue.com/ui/integra" id="free_tax_form"
+					  onsubmit="return target_popup(this)" target="formpopup">
+					<input type="hidden" name="sessiontoken" id="form_sessiontoken" value=""/>
+					<input type="hidden" name="application" id="form_application" value="integra"/>
+					<input type="hidden" name="language" id="form_language" value="es"/>
+					<input type="hidden" name="action" id="form_action" value="issuesilent"/>
+					<input type="hidden" name="poscontrolcallback" id="form_poscontrolcallback" value="true"/>
+					<input type="hidden" name="issuemodel" id="form_issuemodel" value=""/>
+					<input type="hidden" name="csrf_token" id="csfr_token_free_tax_form" value=""/>
+					<button t-on-click="target_form_free_tax_transfer()" class="button freetax highlight"
+							id="button_freetax" disabled="disabled"><i class="fa fa-money"></i>
+						Manage Free-Tax</button>
+				</form>
+			</div>
+		</xpath>
+	</t>
+</templates>
